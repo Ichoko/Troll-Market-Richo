@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{layout :: head}">
+</head>
+<body class="main-body">
+<header th:replace="~{layout :: header (${breadCrumbs})}"></header>
+<nav th:replace="~{layout :: navigation}"></nav>
+<main>
+    <div class="grid-container shipper-index">
+        <a class="blue-button create-button" th:href="@{/shipper/upsertForm}">Add New shipper</a>
+    <table >
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Expedition Name</th>
+            <th>Price</th>
+            <th>Service</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Shipper: ${shipper}" th:object="${Shipper}">
+            <td>
+                <a th:if="*{service}" class="blue-button update-button" th:href="@{/shipper/upsertForm(id=*{id})}" >Edit</a>
+                <a th:if="*{service}" class="blue-button update-button" th:href="@{/shipper/delete(id=*{id})}" >Delete</a>
+                <a th:if="*{service}" class="blue-button delete-button" th:href="@{/shipper/stopService(id=*{id})}" >Stop Service</a>
+            </td>
+            <td th:text="*{name}"></td>
+            <td th:text="*{#numbers.formatCurrency(price)}"></td>
+            <td th:text="*{service}"></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                <div class="pagination">
+                    <div th:text="|page ${currentPage} of ${totalPages}|"></div>
+                    <div th:if="${totalPages !=0}">
+                        <a th:each="loop:${#numbers.sequence(1,totalPages)}"
+                           th:href="@{/shipper/index(page=${loop})}"
+                           th:text="${loop}"></a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    </div>
+</main>
+<footer th:replace="~{layout :: footer}"></footer>
+<th:block th:replace="~{layout :: javascript}"></th:block>
+</body>
+</html>

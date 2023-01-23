@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{layout :: head}">
+</head>
+<body class="main-body">
+<header th:replace="~{layout :: header (${breadCrumbs})}"></header>
+<nav th:replace="~{layout :: navigation}"></nav>
+<main>
+    <!--    Binding html FORM dengan DTO(Upsert Shipper DTO)-->
+    <form class="upsert-form" th:attr="action=@{/shipper/save}" method="post" th:object="${dto}">
+        <input type="hidden" th:name = ${_csrf.parameterName} th:value =${_csrf.token}>
+        <input type="hidden" th:field="*{id}">
+        <table>
+            <tbody>
+
+            <tr>
+                <td>
+                    <label>Shipper Name</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{name}">
+                    <div class="field-validation-error" th:errors="*{name}"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>price</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{price}">
+                    <div class="field-validation-error" th:errors="*{price}"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>Service</label>
+                </td>
+                <td>
+                    <input type="checkbox" th:field="*{service}">
+                    <div class="field-validation-error" th:errors="*{service}"></div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <button class="blue-button" type="submit">Submit</button>
+    </form>
+</main>
+<footer th:replace="~{layout :: footer}"></footer>
+<th:block th:replace="~{layout :: javascript}"></th:block>
+</body>
+</html>

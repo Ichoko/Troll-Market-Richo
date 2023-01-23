@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{layout :: head}">
+</head>
+<body class="main-body">
+<header th:replace="~{layout :: header (${breadCrumbs})}"></header>
+<nav th:replace="~{layout :: navigation}"></nav>
+<main>
+    <!--    Binding html FORM dengan DTO(Upsert  DTO)-->
+    <form class="upsert-form" th:attr="action=@{/merchandise/save}" method="post" th:object="${dto}">
+        <input type="hidden" th:name = ${_csrf.parameterName} th:value =${_csrf.token}>
+        <input type="hidden" th:field="*{id}">
+        <table>
+            <tbody>
+
+            <tr>
+                <td>
+                    <label>Insert New Product </label>
+                </td>
+                <td>
+                    <input type="hidden" th:value="${#authentication.getPrincipal().getUsername()}" id="sellerId"
+                    name="sellerId">
+                    <div class="field-validation-error" th:errors="*{sellerId}"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>Product Name</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{name}">
+                    <div class="field-validation-error" th:errors="*{name}"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>category</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{category}">
+                    <div class="field-validation-error" th:errors="*{category}"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>description</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{description}">
+                    <div class="field-validation-error" th:errors="*{description}"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>price</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{price}">
+                    <div class="field-validation-error" th:errors="*{price}"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>Discontinue</label>
+                </td>
+                <td>
+                    <input type="checkbox" th:field="*{discontinue}">
+                    <div class="field-validation-error" th:errors="*{discontinue}"></div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <button class="blue-button" type="submit">Submit</button>
+    </form>
+</main>
+<footer th:replace="~{layout :: footer}"></footer>
+<th:block th:replace="~{layout :: javascript}"></th:block>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Troll Market</title>
+	<link rel="icon" type="image/ico" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/resources/css/normalize.css}" />
+    <link rel="stylesheet" th:href="@{/resources/css/font-awesome.css}" />
+    <link rel="stylesheet" th:href="@{/resources/css/site.css}" />
+    <script th:src="@{/resources/js/jquery-3.6.0.js}"></script>
+</head>
+<body>
+	<nav th:fragment="navigation" th:attr="data-role=${#authentication.getAuthorities()}">
+		<div class="company-logo">
+			<img th:src="@{/resources/image/logo.png}" alt="Basilisk" />
+			<h1>Troll<span class="bold">Market</span></h1>
+
+		</div>
+	    <a class="menu home" th:href="@{/home/index}">
+	        <i class="fas fa-th"></i>
+	        <span>Home</span>
+	    </a>
+	    <a class="menu profile" th:href="@{/user/index(username=${#authentication.getName()})}">
+	        <i class="fas fa-user-tie"></i>
+	        <span>profile</span>
+	    </a>
+	    <a class="menu shop" th:href="@{/shop/index}">
+	        <i class="fas fa-box-open"></i>
+	        <span>Shop</span>
+	    </a>
+		<a class="menu merchandise" th:href="@{/merchandise}">
+			<i class="fas fa-file-invoice-dollar"></i>
+			<span>merchandise</span>
+		</a>
+
+		<a class="menu shipment" th:href="@{/shipper/index}">
+			<i class="fas fa-users"></i>
+			<span>Shipment</span>
+		</a>
+
+		<a class="menu my-chart" th:href="@{/myChart}">
+	        <i class="fas fa-file-invoice-dollar"></i>
+	        <span>My Chart</span>
+	    </a>
+
+		<a class="menu admin" th:href="@{/account/registerForm(role='admin')}">
+			<i class="fas fa-file-invoice-dollar"></i>
+			<span>Admin</span>
+		</a>
+
+		<a class="menu history" th:href="@{/history}">
+			<i class="fas fa-file-invoice-dollar"></i>
+			<span>history</span>
+		</a>
+
+		<a class="menu" th:href="@{/swagger-ui/index.html}">
+			<i class="fas fa-server"></i>
+			<span>Documentation</span>
+		</a>
+	</nav>
+    <header th:fragment="header (breadCrumbs)">
+        <div class="bread-crumbs">
+            <span th:text="${breadCrumbs}"></span>
+        </div>
+
+        <div class="user-wrapper">
+            <div class="user">
+                <span class="full-name"th:text="${#authentication.getName}">anonymous</span>
+                <span class="role" th:text="${#authentication.getAuthorities}">guest</span>
+            </div>
+            <div class="sign-out">
+                <form method="post" th:attr="action=@{/logout}">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					<button type="submit">
+						<i class="fas fa-sign-out-alt"></i></button>
+				</form>
+            </div>
+        </div>
+    </header>
+    <main></main>
+
+	<footer th:fragment="footer">
+	    Copyrights &copy; 2022
+	    <span class="author">Ichoko</span>
+	    All rights reserved.
+	</footer>
+	<th:block th:fragment="javascript">
+		<script th:src="@{/resources/js/site.js}" defer></script>
+	</th:block>
+</body>
+</html>

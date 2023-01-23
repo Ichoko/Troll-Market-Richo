@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org" lang="en">
+<head th:replace="~{layout :: head}"></head>
+<body  class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header('Detail in product : '+${grid.name})}"></header>
+<main>
+    <div class="grid-container">
+        <section class="header-info">
+<!--            <div>Nama Product       : <span th:text="${grid.name}"></span></div>-->
+<!--            <div>Category Product   : <span th:text="${grid.category}"></span></div>-->
+<!--            <div>Descripsi Product  : <span th:text="${grid.description}"></span></div>-->
+<!--            <div>Harga Product      : <span th:text="${grid.price}"></span></div>-->
+            <a class="blue-button" th:href="@{/shop/index}">BACK</a>
+            <!--        /assignDetailForm(id=${header.id})-->
+        </section>
+
+        <table >
+            <tbody th:object="${grid}">
+
+            <tr>
+                <td>
+                    <label>Product Name</label>
+                </td>
+                <td th:text="*{name}">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>Category Product</label>
+                </td>
+                <td th:text="*{category}">
+
+                </td>
+            </tr>
+
+            <tr>
+                <td >
+                    <label>Product Description</label>
+                </td>
+                <td th:text="*{description}">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>Product Price</label>
+                </td>
+                <td th:text="*{#numbers.formatCurrency(price)}">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>Seller ID</label>
+                </td>
+                <td th:text="*{SellerId}">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer th:replace="~{layout :: footer}"></footer>
+<th:block th:replace = "~{layout :: javascript}"></th:block>
+
+</body>
+</html>

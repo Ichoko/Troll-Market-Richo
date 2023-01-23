@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header (${breadCrumbs})}"></header>
+<main>
+    <form class="upsert-form">
+        <table>
+<!--        <table th:each="author : ${authorDetail}">-->
+            <tr>
+                <td>
+                    <label>Name: </label>
+                </td>
+                <td th:text="${dto.name}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Role </label>
+                </td>
+                <td class="role" th:text="${#authentication.getAuthorities()}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Address : </label>
+                </td>
+                <td th:text="${dto.address}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Balance </label>
+                </td>
+                <td th:text="${dto.balance}"></td>
+            </tr>
+
+        </table>
+
+    </form>
+<!--    <div class="grid-container">-->
+<!--        <section>-->
+<!--            <table>-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                    <th>Dat</th>-->
+<!--                    <th>Product</th>-->
+<!--                    <th>Quantity</th>-->
+<!--                    <th>Shipment</th>-->
+<!--                    <th>TotalPrice</th>-->
+<!--                </tr>-->
+<!--&lt;!&ndash;                <tr th:each="book : ${bookDetail}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:text="${book.title}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:text="${book.categoryName}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:text="${book.isBorrowed}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:text="${book.releaseDate}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:text="${book.totalPage}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--                </tbody>-->
+<!--                <tfoot>-->
+<!--                <tr>-->
+<!--                    <td colspan="5">-->
+<!--                        <div class="pagination">-->
+<!--                            <div th:text="|Page ${currentPage} of ${totalPages}|"></div>-->
+<!--                            <div>-->
+<!--                                <a th:each="pageLoop : ${#numbers.sequence(1, (totalPage < 1) ? 1 : totalPage)}"-->
+<!--                                   th:href="@{/author/books(page=${pageLoop})}"-->
+<!--                                   th:text="${pageLoop}">-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                </tfoot>-->
+<!--            </table>-->
+<!--        </section>-->
+<!--    </div>-->
+</main>
+
+<footer th:replace="~{layout :: footer}"></footer>
+<th:block th:replace="~{layout :: javascript}"></th:block>
+
+</body>
+</html>

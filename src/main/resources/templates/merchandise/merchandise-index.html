@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{layout :: head}">
+</head>
+<body class="main-body">
+<header th:replace="~{layout :: header (${breadCrumbs})}"></header>
+<nav th:replace="~{layout :: navigation}"></nav>
+<main>
+    <div class="grid-container shipper-index">
+        <a class="blue-button create-button" th:href="@{/merchandise/upsertForm(username=${#authentication.getPrincipal().getUsername()})}">Add New Product</a>
+        <table >
+            <thead>
+            <tr>
+                <th>Action</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Discontinue</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="Product: ${dto}" th:object="${Product}">
+                <td>
+                    <a th:if="*{!discontinue}" class="blue-button update-button" th:href="@{/merchandise/upsertForm(id=*{id},username=${#authentication.getPrincipal().getUsername()})}" >Edit</a>
+                    <a th:if="*{id}" class="blue-button update-button" th:href="@{/merchandise/delete(id=*{id})}" >Delete</a>
+                    <a th:if="*{id}" class="blue-button update-button" th:href="@{/merchandise/detail(id=*{id})}" >Info</a>
+                    <a th:if="*{!discontinue}" class="blue-button delete-button" th:href="@{/merchandise/discontinue(id=*{id})}" >Discontinue</a>
+                </td>
+                <td th:text="*{name}"></td>
+                <td th:text="*{category}"></td>
+                <td th:text="*{discontinue} ? 'YES' : 'NO' "></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4">
+                    <div class="pagination">
+                        <div th:text="|page ${currentPage} of ${totalPages}|"></div>
+                        <div th:if="${totalPages !=0}">
+                            <a th:each="loop:${#numbers.sequence(1,totalPages)}"
+                               th:href="@{/shipper/index(page=${loop})}"
+                               th:text="${loop}"></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</main>
+<footer th:replace="~{layout :: footer}"></footer>
+<th:block th:replace="~{layout :: javascript}"></th:block>
+</body>
+</html>
